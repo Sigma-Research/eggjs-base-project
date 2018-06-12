@@ -54,7 +54,7 @@ class BaseService extends Service {
   async update(option, whereOpt) {
     whereOpt.isDel = 0;
     Object.keys(option).forEach(key => {
-      if (this.Model.schema[key] && this.Model.schema[key].allowUpdate === false) {
+      if (this.Model.attributes[key] && this.Model.attributes[key].allowUpdate === false) {
         delete option[key];
       }
     });
