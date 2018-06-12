@@ -1,0 +1,56 @@
+{
+  "name": "eggjs-base-project",
+  "version": "1.0.0",
+  "description": "nothing",
+  "private": false,
+  "dependencies": {
+    "dateformat": "^3.0.3",
+    "egg": "^2.0.0",
+    "egg-redis": "^1.0.2",
+    "egg-scripts": "^2.1.0",
+    "egg-sequelize": "^3.1.2",
+    "egg-session-redis": "^1.0.0",
+    "md5": "^2.2.1",
+    "mysql2": "^1.5.2",
+    "rimraf": "^2.6.2"
+  },
+  "devDependencies": {
+    "autod": "^3.0.1",
+    "autod-egg": "^1.0.0",
+    "egg-bin": "^4.3.5",
+    "egg-ci": "^1.8.0",
+    "egg-mock": "^3.13.0",
+    "eslint": "^4.11.0",
+    "eslint-config-egg": "^5.1.0",
+    "webstorm-disable-index": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "scripts": {
+    "start": "egg-scripts start --daemon --env=prod --title=eggjs-base-project",
+    "stop": "egg-scripts stop --title=eggjs-base-project",
+    "restart": "npm stop && npm start",
+    "start-dev": "egg-scripts start --daemon --env=dev --workers=1 --title=eggjs-base-project",
+    "restart-dev": "npm stop && npm run start-dev",
+    "debug": "egg-scripts start --env=local --workers=1 --title=eggjs-base-project",
+    "test": "npm run lint -- --fix && npm run test-local",
+    "test-local": "egg-bin test",
+    "cov": "egg-bin cov",
+    "lint": "eslint .",
+    "ci": "npm run lint && npm run cov",
+    "autod": "autod",
+    "migrate:new": "egg-sequelize migration:create",
+    "migrate:up": "egg-sequelize db:migrate",
+    "migrate:down": "egg-sequelize db:migrate:undo"
+  },
+  "ci": {
+    "version": "8"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "<your email address>",
+  "license": "MIT"
+}

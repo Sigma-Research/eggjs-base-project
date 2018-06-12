@@ -1,0 +1,7 @@
+coverage
+node_modules
+run
+logs
+test
+test.*
+test*
