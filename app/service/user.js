@@ -4,9 +4,9 @@
  */
 
 'use strict';
-const BaseService = require('../core/base/service');
+const ModelService = require('../core/base/modelService');
 
-class UserService extends BaseService {
+class UserService extends ModelService {
   constructor(ctx) {
     super(ctx, ctx.app.model.User);
   }

@@ -5,7 +5,7 @@
 'use strict';
 
 const { Service } = require('egg');
-class BaseService extends Service {
+class ModelService extends Service {
 
   constructor(ctx, Model) {
     super(ctx);
@@ -67,4 +67,4 @@ class BaseService extends Service {
 
 }
 
-module.exports = BaseService;
+module.exports = ModelService;

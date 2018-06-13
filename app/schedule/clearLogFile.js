@@ -4,7 +4,7 @@
  */
 'use strict';
 
-const BaseSubscription = require('../core/base/subscription');
+const BaseSubscription = require('../core/base/baseSubscription');
 const fs = require('fs');
 const path = require('path');
 const dateformat = require('dateformat');
