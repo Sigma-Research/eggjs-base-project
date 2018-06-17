@@ -3,8 +3,9 @@
  * @author zengbaoqing<misterapptracy@gmail.com>
  */
 'use strict';
+import { EggPlugin } from 'egg';
 
-module.exports = {
+const plugin: EggPlugin = {
   redis: {
     enable: true,
     package: 'egg-redis',
@@ -19,3 +20,5 @@ module.exports = {
   },
   session: true,
 };
+
+export default plugin;

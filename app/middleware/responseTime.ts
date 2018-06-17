@@ -4,7 +4,7 @@
  */
 'use strict';
 
-module.exports = () => {
+export default () => {
   return async (ctx, next) => {
     const startTime = +new Date();
     await next();

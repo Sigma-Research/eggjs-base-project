@@ -3,12 +3,13 @@
  * @author zengbaoqing<misterapptracy@gmail.com>
  */
 'use strict';
-module.exports = () => {
+
+export default () => {
   return async (ctx, next) => {
     if (!ctx.session.userId) {
       ctx.body = {
         status: 1006,
-        statusInfo: '用户未登录'
+        statusInfo: '用户未登录',
       };
       return;
     }

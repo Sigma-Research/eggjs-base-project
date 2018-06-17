@@ -3,17 +3,16 @@
  * @author zengbaoqing<misterapptracy@gmail.com>
  */
 'use strict';
-
-const BaseSubscription = require('../core/base/baseSubscription');
-const fs = require('fs');
-const path = require('path');
-const dateformat = require('dateformat');
-const os = require('os');
-const rimraf = require('rimraf');
+import * as dateformat from 'dateformat';
+import * as fs from 'fs';
+import * as os from 'os';
+import * as path from 'path';
+import * as rimraf from 'rimraf';
+import BaseSubscription from '../core/base/baseSubscription';
 // 考试过期时间
 const EXPIRE_DURATION = 5 * 24 * 60 * 60 * 1000;
 
-class ClearLogFile extends BaseSubscription {
+export default class ClearLogFile extends BaseSubscription {
   constructor(ctx) {
     super(ctx, 'global', ctx.app.config.scheduleLockKey.clearLogFile);
   }
@@ -23,7 +22,7 @@ class ClearLogFile extends BaseSubscription {
       cron: '0 0 3 * * *', // 每天凌晨三点执行
       // interval: '1s',
       type: 'worker',
-      disable: false
+      disable: false,
     };
   }
 
@@ -43,7 +42,7 @@ class ClearLogFile extends BaseSubscription {
     if (!files || !files.length) {
       return logger.info('no expire log files!');
     }
-    files.forEach(filename => {
+    files.forEach((filename) => {
       if (!isLogReg.test(filename)) {
         return;
       }
@@ -62,5 +61,3 @@ class ClearLogFile extends BaseSubscription {
     });
   }
 }
-
-module.exports = ClearLogFile;
