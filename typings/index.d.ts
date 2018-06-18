@@ -1,12 +1,10 @@
-import * as redis from "egg-redis"
 import Reg from "../app/core/utils/reg"
 
 declare module 'egg' {
-    export interface Application {
-        redis,
+    interface Application {
         utils: {
             reg: Reg
         },
-        userId
+        userId?: string,
     }
 }

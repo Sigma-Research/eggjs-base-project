@@ -10,7 +10,7 @@ import * as Sequelize from 'sequelize';
 import * as superSequelize from '../core/base/typings/modelService';
 import reg from '../core/utils/reg';
 
-export interface Attribute {
+export interface Attributes {
   id?: string;
   username?: string;
   nickname?: string;
@@ -21,7 +21,7 @@ export interface Attribute {
   isDel?: number;
 }
 
-export type Instance = Sequelize.Instance<Attribute> & Attribute;
+export type Instance = Sequelize.Instance<Attributes> & Attributes;
 
 export const defineAttributes: superSequelize.DefineAttributes = {
   id: {
@@ -83,7 +83,7 @@ export const defineAttributes: superSequelize.DefineAttributes = {
 export default (app: Application) => {
   const { model } = app;
   // todo 无法使用app.utils
-  return model.define('user', defineAttributes, {
+  return model.define<Instance, Attributes>('user', defineAttributes, {
     freezeTableName: true,
     indexes: [
       {

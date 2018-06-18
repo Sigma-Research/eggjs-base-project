@@ -4,11 +4,12 @@
  * @desc 默认会读取./lua 下的所有lua文件，请遵从此命名规范{command}.{numberOfKeys}.lua
  */
 'use strict';
+import { Application } from 'egg';
 import * as fs from 'fs';
 import * as path from 'path';
 const commandDir = path.join(__dirname, './lua');
 const files = fs.readdirSync(commandDir);
-export default (app) => {
+export default (app: Application) => {
   const { redis } = app;
   files.forEach((filename) => {
     if (!/.*.lua$/i.test(filename)) {

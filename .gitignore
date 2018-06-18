@@ -66,3 +66,12 @@ typings/config/
 
 # next.js build output
 .next
+
+# all auto-generated js files
+app/**/*.js
+test/**/*.js
+config/**/*.js
+app/**/*.map
+test/**/*.map
+config/**/*.map
+app.js

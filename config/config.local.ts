@@ -21,7 +21,6 @@ module.exports = () => {
       dialect: 'mysql',
       database: 'demo',
       username: 'root',
-      password: '<your mysql password>',
       host: 'localhost',
       port: 3306,
       pool: {
@@ -31,7 +30,7 @@ module.exports = () => {
       },
       define: {
         engine: 'InnoDB',
-        timestamp: false,
+        timestamps: false,
         createdAt: 'createTime',
         updatedAt: 'updateTime',
         charset: 'utf8',

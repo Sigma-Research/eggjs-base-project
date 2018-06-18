@@ -7,10 +7,6 @@
     "typescript": true
   },
   "dependencies": {
-    "@types/dateformat": "^1.0.1",
-    "@types/md5": "^2.1.32",
-    "@types/rimraf": "^2.0.2",
-    "@types/sequelize": "^4.27.21",
     "dateformat": "^3.0.3",
     "egg": "^2.9.0",
     "egg-redis": "^2.0.0",
@@ -26,6 +22,11 @@
     "@types/node": "^10.3.3",
     "@types/mocha": "^5.2.2",
     "@types/supertest": "^2.0.4",
+    "@types/dateformat": "^1.0.1",
+    "@types/ioredis": "^3.2.8",
+    "@types/md5": "^2.1.32",
+    "@types/rimraf": "^2.0.2",
+    "@types/sequelize": "^4.27.21",
     "autod": "^3.0.1",
     "autod-egg": "^1.1.0",
     "egg-bin": "^4.7.0",
