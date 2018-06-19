@@ -34,7 +34,7 @@ module.exports = () => {
         timestamps: false,
         createdAt: 'createTime',
         updatedAt: 'updateTime',
-        charset: 'utf8',
+        charset: 'utf8mb4',
       },
     },
   };
