@@ -1,8 +1,8 @@
 'use strict';
+import * as sequelize from 'sequelize';
 import bizAttributes from '../app/core/base/modelBizAttributes';
-import * as Sequelize from 'sequelize'
 module.exports = {
-  async up(queryInterface: Sequelize.QueryInterface, Sequelize: Sequelize.SequelizeStatic) {
+  async up(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.SequelizeStatic) {
     return [
       await queryInterface.createTable('user', {
         ...bizAttributes,
@@ -30,11 +30,11 @@ module.exports = {
         },
       }),
       await queryInterface.addIndex('user', ['username'], {
-        indicesType: 'UNIQUE'
+        indicesType: 'UNIQUE',
       })];
   },
 
-  down(queryInterface: Sequelize.QueryInterface) {
+  down(queryInterface: sequelize.QueryInterface) {
     return queryInterface.dropTable('user');
-  }
-}
+  },
+};

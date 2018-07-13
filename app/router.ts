@@ -14,4 +14,6 @@ export default (app: Application) => {
   router.post('/register', user.register);
   // 获取个人信息
   router.get('/user/getOneById', middleware.authLogin(), user.getOneById);
+  // 模拟报错
+  router.get('/error', user.error);
 };

@@ -72,4 +72,8 @@ export default class UserController extends Controller {
       data: user,
     };
   }
+
+  async error() {
+    throw new Error('手动错误');
+  }
 }

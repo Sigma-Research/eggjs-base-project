@@ -37,10 +37,12 @@
     "variable-name": [
       true,
       "allow-leading-underscore",
+      "allow-pascal-case"
     ],
     "align": [true, "statements"],
     "max-line-length": false,
     "no-implicit-dependencies": false,
     "no-submodule-imports": false,
+    "indent": [true, "spaces", 2]
   }
 }
