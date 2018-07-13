@@ -15,8 +15,7 @@
     "egg-session-redis": "^1.0.0",
     "md5": "^2.2.1",
     "mysql2": "^1.5.3",
-    "rimraf": "^2.6.2",
-    "sequelize": "^4.37.10"
+    "rimraf": "^2.6.2"
   },
   "devDependencies": {
     "@types/dateformat": "^1.0.1",

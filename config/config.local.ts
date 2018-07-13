@@ -22,6 +22,7 @@ module.exports = () => {
       database: 'demo',
       username: 'root',
       host: 'localhost',
+      password: 'Gx199492.',
       port: 3306,
       pool: {
         max: 100,

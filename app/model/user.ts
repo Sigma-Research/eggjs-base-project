@@ -7,30 +7,25 @@
 'use strict';
 import { Application } from 'egg';
 import * as Sequelize from 'sequelize';
+import bizAttributes from '../core/base/modelBizAttributes';
 import * as superSequelize from '../core/base/typings/modelService';
 import reg from '../core/utils/reg';
 
-export interface Attributes {
-  id?: string;
-  username?: string;
-  nickname?: string;
-  password?: string;
-  headImageUrl?: string;
-  updateTime?: number;
-  createTime?: number;
-  isDel?: number;
+export interface CusAttributes {
+  username: string;
+  nickname: string;
+  password: string;
+  headImageUrl: string;
 }
 
-export type Instance = Sequelize.Instance<Attributes> & Attributes;
+// 字段声明
+export type Attributes = superSequelize.Attributes<CusAttributes>;
+
+// 实例类声明
+export type Instance = superSequelize.Instance<CusAttributes>;
 
 export const defineAttributes: superSequelize.DefineAttributes = {
-  id: {
-    type: Sequelize.INTEGER(11),
-    primaryKey: true,
-    autoIncrement: true,
-    comment: '自增主键',
-    allowUpdate: false,
-  },
+  ...bizAttributes,
   username: {
     type: Sequelize.STRING(32),
     allowNull: false,
@@ -59,24 +54,6 @@ export const defineAttributes: superSequelize.DefineAttributes = {
     validate: {
       is: new reg().url,
     },
-  },
-  updateTime: {
-    type: Sequelize.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.NOW,
-    comment: '更新时间',
-  },
-  createTime: {
-    type: Sequelize.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.NOW,
-    comment: '创建时间',
-  },
-  isDel: {
-    type: Sequelize.INTEGER(1),
-    allowNull: true,
-    defaultValue: 0,
-    comment: '用于逻辑删除',
   },
 };
 

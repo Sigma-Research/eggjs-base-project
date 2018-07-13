@@ -36,9 +36,11 @@
     ],
     "variable-name": [
       true,
-      "allow-leading-underscore"
+      "allow-leading-underscore",
     ],
     "align": [true, "statements"],
-    "max-line-length": false
+    "max-line-length": false,
+    "no-implicit-dependencies": false,
+    "no-submodule-imports": false,
   }
 }
