@@ -12,7 +12,7 @@ export default class UserController extends Controller {
     const { ctx, service, app } = this;
     const { reg } = app.utils;
     const { username, password } = ctx.request.body;
-    if (username === undefined || password === undefined || !reg.username.test(username) || !reg.password.test(password)) {
+    if (!reg.username.test(username) || !reg.password.test(password)) {
       ctx.body = {
         status: 1002,
         statusInfo: '参数错误',
@@ -64,8 +64,8 @@ export default class UserController extends Controller {
   }
 
   async getOneById() {
-    const { ctx, service, app } = this;
-    const { userId } = app;
+    const { ctx, service } = this;
+    const { userId } = ctx.data;
     const user = await service.user.getOne({ where: { id: userId } });
     ctx.body = {
       status: 0,

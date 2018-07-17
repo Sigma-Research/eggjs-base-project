@@ -7,7 +7,7 @@
 'use strict';
 import { Application } from 'egg';
 import * as Sequelize from 'sequelize';
-import bizAttributes from '../core/base/modelBizAttributes';
+import ModelBizAttributes from '../core/base/modelBizAttributes';
 import * as superSequelize from '../core/base/typings/modelService';
 import reg from '../core/utils/reg';
 
@@ -25,7 +25,7 @@ export type Attributes = superSequelize.Attributes<CusAttributes>;
 export type Instance = superSequelize.Instance<CusAttributes>;
 
 export const defineAttributes: superSequelize.DefineAttributes = {
-  ...bizAttributes,
+  ...ModelBizAttributes,
   username: {
     type: Sequelize.STRING(32),
     allowNull: false,

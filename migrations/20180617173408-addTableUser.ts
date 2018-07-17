@@ -1,11 +1,11 @@
 'use strict';
 import * as sequelize from 'sequelize';
-import bizAttributes from '../app/core/base/modelBizAttributes';
+import ModelBizAttributes from '../app/core/base/modelBizAttributes';
 module.exports = {
   async up(queryInterface: sequelize.QueryInterface, Sequelize: sequelize.SequelizeStatic) {
     return [
       await queryInterface.createTable('user', {
-        ...bizAttributes,
+        ...ModelBizAttributes,
         username: {
           type: Sequelize.STRING(32),
           allowNull: false,

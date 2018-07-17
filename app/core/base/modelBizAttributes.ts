@@ -1,5 +1,6 @@
 import * as Sequelize from 'sequelize';
 import * as superSequelize from '../base/typings/modelService';
+
 const bizAttributes: superSequelize.DefineAttributes = {
   id: {
     type: Sequelize.INTEGER(11),

@@ -1,12 +1,12 @@
 /**
  * @file 用户登录验证中间件
- * @author zengbaoqing<misterapptracy@gmail.com>
+ * @author guxiang <gavingu12@gmail.com>
  */
 'use strict';
+import { Context } from 'egg';
 
-export default () => {
-  // TODO 参数传递的类型有问题，egg没有重写koa的url method导致一旦使用类型限定middleware必须要传IRouterContext
-  return async (ctx, next) => {
+export default (): any => {
+  return async (ctx: Context, next: any) => {
     if (!ctx.session.userId) {
       ctx.body = {
         status: 1006,
@@ -14,7 +14,7 @@ export default () => {
       };
       return;
     }
-    ctx.app.userId = ctx.session.userId;
+    ctx.data = {...(ctx.data || {}), userId: ctx.session.userId};
     await next();
   };
 };

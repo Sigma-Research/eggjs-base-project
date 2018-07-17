@@ -24,8 +24,8 @@ declare namespace superSequelize {
 
   interface UpdateOptions<T> extends sequelize.UpdateOptions {
     where: {
-      [P in keyof T]?: string | number | boolean | WhereLogic | WhereOptions<T[P]> | col | and | or | WhereGeometryOptions | WhereNested | Array<string | number> | null;
-    };
+      [P in keyof T]?: string|number|boolean|WhereLogic|WhereOptions<T[P]>|col|and|or|WhereGeometryOptions|WhereNested|Array<string|number>|null;
+      };
   }
 
   interface DefineAttributeColumnOptions extends sequelize.DefineAttributeColumnOptions {
@@ -37,24 +37,24 @@ declare namespace superSequelize {
   }
 
   // 业务属性
-  type Attributes<T> = T & {
+  type Attributes<T> = T&{
     id?: number;
     updateTime?: number; // DATETIME我们一般传入 +new Date()时间戳
     createTime?: number;
     isActive?: number;
-    isDel?: number | null;
+    isDel?: number|null;
   }
 
   // 业务属性返回值
-  type ResponseAttributes<T> = T & {
+  type ResponseAttributes<T> = T&{
     id: number;
     updateTime: string; // DATETIME返回值是string
     createTime: string;
     isActive: number;
-    isDel: string | null;
+    isDel: string|null;
   }
 
-  type Instance<T> = sequelize.Instance<ResponseAttributes<T>> & ResponseAttributes<T>;
+  type Instance<T> = sequelize.Instance<ResponseAttributes<T>>&ResponseAttributes<T>;
 }
 
 export = superSequelize

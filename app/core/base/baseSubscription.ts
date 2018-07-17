@@ -1,12 +1,12 @@
 /**
  * @file 计时器扩展类
- * @author zengbaoqing<misterapptracy@gmail.com>
+ * @author guxiang <gavingu12@gmail.com>
  */
 'use strict';
 
 import { Context, Subscription } from 'egg';
 
-export default class BaseSubscription extends Subscription {
+export default abstract class BaseSubscription extends Subscription {
 
   public lockType: string;
   public lockKey: string;
@@ -24,11 +24,11 @@ export default class BaseSubscription extends Subscription {
     }
   }
 
-  async start() {
+  public async start() {
     // 单进程异步函数
   }
 
-  async subscribe() {
+  public async subscribe() {
     // 真正执行的定时函数
     const { redis, logger } = this.app;
     switch (this.lockType) {
