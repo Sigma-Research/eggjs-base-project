@@ -12,6 +12,7 @@ module.exports = () => {
       };
       return;
     }
+    ctx.data = Object.assign(ctx.data || {}, { userId: ctx.session.userId });
     await next();
   };
 };

@@ -20,12 +20,12 @@ class ModelService extends Service {
     return await this.Model.bulkCreate(list);
   }
 
-  async getOne(whereOpt, attributes) {
-    if (whereOpt.isDel !== 1) {
-      whereOpt.isDel = 0;
+  async getOne({ where, attributes }) {
+    if (where.isDel !== 1) {
+      where.isDel = 0;
     }
     const opt = {
-      where: whereOpt
+      where
     };
     if (attributes && attributes.constructor === Array) {
       opt.attributes = attributes;
@@ -33,20 +33,20 @@ class ModelService extends Service {
     return await this.Model.findOne(opt);
   }
 
-  async getList(whereOpt, attributes = '*', page, pageSize) {
-    if (whereOpt.isDel !== 1) {
-      whereOpt.isDel = 0;
+  async getList({ where, attributes = '*', page, pageSize }) {
+    if (where.isDel !== 1) {
+      where.isDel = 0;
     }
     const opt = {
-      where: whereOpt
+      where
     };
     if (attributes && attributes.constructor === Array) {
       opt.attributes = attributes;
     }
     if (page >= 1) {
       pageSize = pageSize > 0 ? pageSize : 10;
-      whereOpt.offset = (page - 1) * pageSize;
-      whereOpt.limit = pageSize;
+      where.offset = (page - 1) * pageSize;
+      where.limit = pageSize;
     }
     return await this.Model.findAll(opt);
   }

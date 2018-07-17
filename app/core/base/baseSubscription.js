@@ -21,6 +21,7 @@ class BaseSubscription extends Subscription {
   async subscribe() {
     // 真正执行的定时函数
     const { redis } = this.app;
+    let isGlobalLock = 0;
     switch (this.lockType) {
       case 'process':
         // 锁类型为进程锁时，保证worker内串行，不保证多节点下串行
@@ -33,7 +34,7 @@ class BaseSubscription extends Subscription {
         break;
       case 'global':
         // 锁类型为全局锁，保证多节点部署下的单worker串行
-        const isGlobalLock = await redis.isGlobalLock(this.lock);
+        isGlobalLock = await redis.isGlobalLock(this.lock);
         if (isGlobalLock) {
           return;
         }

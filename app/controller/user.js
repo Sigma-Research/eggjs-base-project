@@ -9,7 +9,7 @@ const md5 = require('md5');
 class UserController extends Controller {
 
   async login() {
-    const { ctx, service, logger, app } = this;
+    const { ctx, service, app } = this;
     const { reg } = app.utils;
     const { username, password } = ctx.request.body;
     if (!reg.username.test(username) || !reg.password.test(password)) {
@@ -19,7 +19,11 @@ class UserController extends Controller {
       };
       return;
     }
-    const user = await service.user.getOne({ username });
+    const user = await service.user.getOne({
+      where: {
+        username
+      }
+    });
     if (!user || user.password !== md5(password)) {
       ctx.body = {
         status: 1004,
@@ -44,7 +48,11 @@ class UserController extends Controller {
       };
       return;
     }
-    const user = await service.user.getOne({ username });
+    const user = await service.user.getOne({
+      where: {
+        username
+      }
+    });
     if (user) {
       ctx.body = {
         status: 1001,
@@ -64,9 +72,13 @@ class UserController extends Controller {
   }
 
   async getOneById() {
-    const { ctx, service, app } = this;
-    const { userId } = app;
-    const user = await service.user.getOne({ id: userId });
+    const { ctx, service } = this;
+    const { userId } = ctx.data;
+    const user = await service.user.getOne({
+      where: {
+        id: userId
+      }
+    });
     ctx.body = {
       status: 0,
       data: user
