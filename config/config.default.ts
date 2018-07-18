@@ -54,7 +54,7 @@ module.exports = (appInfo: EggAppInfo) => {
       encrypt: true,
     },
     onerror: {
-      all(err, ctx) {
+      json(err, ctx) {
         // 在此处定义针对所有响应类型的错误处理方法
         // 注意，定义了 config.all 之后，其他错误处理方法不会再生效
         // 所有其他错误都status 1005 返回
@@ -63,6 +63,14 @@ module.exports = (appInfo: EggAppInfo) => {
           status: 1005,
           statusInfo: err.message || '未知错误',
         };
+        ctx.status = 200;
+      },
+      html(err, ctx) {
+        // html hander
+        ctx.body = JSON.stringify({
+          status: 1005,
+          statusInfo: err.message || '未知错误',
+        });
         ctx.status = 200;
       },
     },
