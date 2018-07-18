@@ -33,7 +33,7 @@ export default class UserController extends Controller {
     };
   }
 
-  async register() {
+  public async register() {
     const { ctx, service, app } = this;
     const { reg } = app.utils;
     const { username, password, nickname, headImageUrl } = ctx.request.body;
