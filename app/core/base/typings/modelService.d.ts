@@ -41,7 +41,6 @@ declare namespace superSequelize {
     id?: number;
     updateTime?: number; // DATETIME我们一般传入 +new Date()时间戳
     createTime?: number;
-    isActive?: number;
     isDel?: number|null;
   }
 
@@ -50,7 +49,6 @@ declare namespace superSequelize {
     id: number;
     updateTime: string; // DATETIME返回值是string
     createTime: string;
-    isActive: number;
     isDel: string|null;
   }
 
