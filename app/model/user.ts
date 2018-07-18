@@ -37,19 +37,19 @@ export const defineAttributes: superSequelize.DefineAttributes = {
   },
   nickname: {
     type: Sequelize.STRING(32),
-    allowNull: false,
+    allowNull: true,
     defaultValue: '',
     comment: '昵称',
   },
   password: {
     type: Sequelize.STRING(64),
     allowNull: false,
-    defaultValue: '',
     comment: '密码',
   },
   headImageUrl: {
     type: Sequelize.STRING(256),
     allowNull: true,
+    defaultValue:'',
     comment: '头像地址',
     validate: {
       is: reg.url,

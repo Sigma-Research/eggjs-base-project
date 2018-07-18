@@ -13,7 +13,6 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
   // superSequelize.Attributes<TAttributes> 是TAttributes & BizAttributes
   constructor(ctx: Context, public model: sequelize.Model<TInstance, TAttributes>, public schema: superSequelize.DefineAttributes) {
     super(ctx);
-    this.model = model;
   }
 
   public async create(values?: TAttributes, options?: sequelize.CreateOptions) {
@@ -24,24 +23,12 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
     return this.model.bulkCreate(records, options);
   }
 
-  public async getOneOrCreate(options:
-    superSequelize.GetOneOrInitializeOptions<superSequelize.Attributes<TAttributes>> = {}) {
-    if (!options.where) {
-      options.where = {};
-    }
-    options.where.isDel = { [sequelize.Op.is]: null };
-    if (options.defaults) {
-      options.defaults.isDel = null;
-    }
-    return this.model.findOrCreate(options);
-  }
-
   // sequelize.FindOptions<TAttributes & BizAttributes>
   public async getOne(options: superSequelize.GetOneOptions<superSequelize.Attributes<TAttributes>> = {}) {
     if (!options.where) {
       options.where = {};
     }
-    options.where.isDel = { [sequelize.Op.is]: null };
+    options.where.isDel = 0;
     return this.model.findOne<superSequelize.Attributes<TAttributes>>(options);
   }
 
@@ -50,7 +37,7 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
     if (!options.where) {
       options.where = {};
     }
-    options.where.isDel = { [sequelize.Op.is]: null };
+    options.where.isDel = 0;
     const page = options.page && options.page >= 1 ? options.page : 1;
     const pageSize = options.pageSize && options.pageSize > 0 ? (options.pageSize > 1000 ? 1000 : options.pageSize) : 10;
     options.offset = (page - 1) * pageSize;
@@ -62,7 +49,7 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
     if (!options.where) {
       options.where = {};
     }
-    options.where.isDel = { [sequelize.Op.is]: null };
+    options.where.isDel = 0;
     return this.model.findAll<superSequelize.Attributes<TAttributes>>(options);
   }
 
@@ -70,14 +57,13 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
     if (!options.where) {
       options.where = {};
     }
-    options.where.isDel = { [sequelize.Op.is]: null };
+    options.where.isDel = 0;
     Object.keys(values).forEach((key) => {
       if ((this.schema[key] && this.schema[key].allowUpdate === false)
         || values[key] === undefined || this.schema[key] === undefined) {
         delete values[key];
       }
     });
-    values.updateTime = +new Date();
     return this.model.update(values, options);
   }
 
@@ -87,8 +73,8 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
     if (!options.where) {
       options.where = {};
     }
-    options.where.isDel = { [sequelize.Op.is]: null };
     values.isDel = +new Date();
+    options.where.isDel = 0;
     return this.model.update(values, options);
   }
 }

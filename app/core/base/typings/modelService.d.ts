@@ -1,9 +1,4 @@
-import * as sequelize from "sequelize"
-
-// 对默认类型的拓展
-declare module 'sequelize' {
-
-}
+import sequelize from "sequelize"
 
 // 新接口
 declare namespace superSequelize {
@@ -24,7 +19,7 @@ declare namespace superSequelize {
 
   interface UpdateOptions<T> extends sequelize.UpdateOptions {
     where: {
-      [P in keyof T]?: string|number|boolean|WhereLogic|WhereOptions<T[P]>|col|and|or|WhereGeometryOptions|WhereNested|Array<string|number>|null;
+      [P in keyof T]?: string|number|boolean|WhereLogic|WhereOptions<T[P]>|col|and|or|WhereGeometryOptions|WhereNested|Array<string|number>|null;  
     };
   }
 
@@ -39,9 +34,9 @@ declare namespace superSequelize {
   // 业务属性
   type Attributes<T> = T&{
     id?: number;
-    updateTime?: number; // DATETIME我们一般传入 +new Date()时间戳
-    createTime?: number;
-    isDel?: number|null;
+    updateTime?: sequelize.SequelizeStatic.DATE; // DATETIME我们一般传入 +new Date()时间戳
+    createTime?: sequelize.SequelizeStatic.DATE;
+    isDel?: number;
   }
 
   // 业务属性返回值
@@ -49,7 +44,7 @@ declare namespace superSequelize {
     id: number;
     updateTime: string; // DATETIME返回值是string
     createTime: string;
-    isDel: string|null;
+    isDel: number;
   }
 
   type Instance<T> = sequelize.Instance<ResponseAttributes<T>>&ResponseAttributes<T>;
