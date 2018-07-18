@@ -25,7 +25,7 @@ declare namespace superSequelize {
   interface UpdateOptions<T> extends sequelize.UpdateOptions {
     where: {
       [P in keyof T]?: string|number|boolean|WhereLogic|WhereOptions<T[P]>|col|and|or|WhereGeometryOptions|WhereNested|Array<string|number>|null;
-      };
+    };
   }
 
   interface DefineAttributeColumnOptions extends sequelize.DefineAttributeColumnOptions {
