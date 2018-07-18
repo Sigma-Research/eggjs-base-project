@@ -31,7 +31,7 @@ export const defineAttributes: superSequelize.DefineAttributes = {
     allowNull: false,
     comment: '应用的唯一key',
     validate: {
-      is: new reg().username,
+      is: reg.username,
     },
     allowUpdate: false,
   },
@@ -52,7 +52,7 @@ export const defineAttributes: superSequelize.DefineAttributes = {
     allowNull: true,
     comment: '头像地址',
     validate: {
-      is: new reg().url,
+      is: reg.url,
     },
   },
 };

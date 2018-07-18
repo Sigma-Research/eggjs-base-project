@@ -56,9 +56,9 @@ export default class UserController extends Controller {
       status: 0,
       data: await service.user.create({
         username,
-        password: md5(password),
         nickname,
         headImageUrl,
+        password: md5(password),
       }),
     };
   }
@@ -71,9 +71,5 @@ export default class UserController extends Controller {
       status: 0,
       data: user,
     };
-  }
-
-  async error() {
-    throw new Error('手动错误');
   }
 }

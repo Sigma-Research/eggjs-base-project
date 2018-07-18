@@ -10,13 +10,7 @@ import loadRedisCommand from './app/core/redisCommand';
 export default (app: Application) => {
   // 加载工具方法到app
   const direcotry = path.join(app.config.baseDir, 'app/core/utils');
-  app.loader.loadToApp(direcotry, 'utils', {
-    initializer(model) {
-      // 第一个参数为 export 的对象
-      // 第二个参数为一个对象，只包含当前文件的路径
-      return new model();
-    },
-  });
+  app.loader.loadToApp(direcotry, 'utils', {});
   // 应用会等待这个函数执行完成才启动
   app.beforeStart(async () => {
     const { redis, config } = app;

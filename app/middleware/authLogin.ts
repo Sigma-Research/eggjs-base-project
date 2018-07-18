@@ -14,7 +14,7 @@ export default (): any => {
       };
       return;
     }
-    ctx.data = {...(ctx.data || {}), userId: ctx.session.userId};
+    ctx.data = { ...(ctx.data || {}), userId: ctx.session.userId };
     await next();
   };
 };
