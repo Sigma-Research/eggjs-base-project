@@ -8,7 +8,7 @@ import { Controller } from 'egg';
 import * as md5 from 'md5';
 export default class UserController extends Controller {
 
-  async login() {
+  public async login() {
     const { ctx, service, app } = this;
     const { reg } = app.utils;
     const { username, password } = ctx.request.body;
@@ -63,7 +63,7 @@ export default class UserController extends Controller {
     };
   }
 
-  async getOneById() {
+  public async getOneById() {
     const { ctx, service } = this;
     const { userId } = ctx.data;
     const user = await service.user.getOne({ where: { id: userId } });

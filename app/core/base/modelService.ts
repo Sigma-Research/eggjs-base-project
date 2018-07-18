@@ -45,7 +45,7 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
     return this.model.findOne<superSequelize.Attributes<TAttributes>>(options);
   }
 
-  async getList(options:
+  public async getList(options:
     superSequelize.GetListOptions<superSequelize.Attributes<TAttributes>> = {}) {
     if (!options.where) {
       options.where = {};

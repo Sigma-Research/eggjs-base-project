@@ -17,7 +17,7 @@ export default class ClearLogFile extends BaseSubscription {
     super(ctx, 'global', ctx.app.config.scheduleLockKey.clearLogFile);
   }
   // 通过 schedule 属性来设置定时任务的执行间隔等配置
-  static get schedule() {
+  public static get schedule() {
     return {
       cron: '0 0 3 * * *', // 每天凌晨三点执行
       // interval: '1s',
@@ -27,7 +27,7 @@ export default class ClearLogFile extends BaseSubscription {
   }
 
   // start 是真正定时任务执行时被运行的函数
-  async start() {
+  public async start() {
     const { config, logger } = this;
     const { dir, appLogName, coreLogName, agentLogName, errorLogName } = config.logger;
     const isLogReg = new RegExp(`^(${appLogName}|${coreLogName}|${agentLogName}|${errorLogName})`, 'i');
