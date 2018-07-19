@@ -1,3 +1,8 @@
+/**
+ * @file modelService接口定义
+ * @author guxiang <gavingu12@gmail.com>
+ */
+'use strict';
 import sequelize from "sequelize"
 
 // 新接口

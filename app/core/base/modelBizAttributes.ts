@@ -1,3 +1,8 @@
+/**
+ * @file 表通用字段
+ * @author guxiang <gavingu12@gmail.com>
+ */
+'use strict';
 import * as sequelize from 'sequelize';
 import * as superSequelize from '../base/typings/modelService';
 

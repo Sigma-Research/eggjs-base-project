@@ -42,10 +42,6 @@ jspm_packages/
 # runtime file
 run
 
-# TypeScript v1 declaration files
-typings/app/
-typings/config/
-
 # Optional npm cache directory
 .npm
 
