@@ -1,9 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-    <component name="JavaScriptLibraryMappings">
-        <includedPredefinedLibrary name="Node.js Core"/>
-        <includedPredefinedLibrary name="ECMAScript 6"/>
-        <excludedPredefinedLibrary name="eggjs-base-project/node_modules"/>
-        <file url="PROJECT" libraries="{node-DefinitelyTyped,mocha-DefinitelyTyped}"/>
-    </component>
+  <component name="JavaScriptLibraryMappings">
+    <includedPredefinedLibrary name="Node.js Core" />
+  </component>
 </project>
