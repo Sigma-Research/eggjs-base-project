@@ -29,7 +29,7 @@ module.exports = {
     },
     define: {
       engine: 'InnoDB',
-      timestamp: false,
+      timestamps: false,
       createdAt: 'createTime',
       updatedAt: 'updateTime',
       charset: 'utf8'
