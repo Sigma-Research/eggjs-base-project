@@ -1,5 +1,5 @@
 /**
- * @file service 基类
+ * @file service model基类
  * @author guxiang <gavingu12@gmail.com>
  */
 'use strict';
@@ -32,8 +32,7 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
     return this.model.findOne<superSequelize.Attributes<TAttributes>>(options);
   }
 
-  public async getList(options:
-    superSequelize.GetListOptions<superSequelize.Attributes<TAttributes>> = {}) {
+  public async getList(options: superSequelize.GetListOptions<superSequelize.Attributes<TAttributes>> = {}) {
     if (!options.where) {
       options.where = {};
     }
@@ -60,7 +59,8 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
     options.where.isDel = 0;
     Object.keys(values).forEach((key) => {
       if ((this.schema[key] && this.schema[key].allowUpdate === false)
-        || values[key] === undefined || this.schema[key] === undefined) {
+        || values[key] === undefined
+        || this.schema[key] === undefined) {
         delete values[key];
       }
     });

@@ -30,7 +30,8 @@ export default abstract class BaseSubscription extends Subscription {
 
   public async subscribe() {
     // 真正执行的定时函数
-    const { redis, logger } = this.app;
+    const { redis } = this.app;
+    let globalLock = 0;
     switch (this.lockType) {
       case 'process':
         // 锁类型为进程锁时,保证worker内串行,不保证多节点下串行
@@ -41,21 +42,27 @@ export default abstract class BaseSubscription extends Subscription {
         try {
           await this.start();
         } catch (e) {
-          logger.error(e);
+          throw e;
         } finally {
           this.lock.isLock = false;
         }
         break;
       case 'global':
         // 锁类型为内存锁时,保证多节点下所有worker串行,相当于egg内置的type选项失效
-        if (await redis.isGlobalLock(this.lockKey)) {
+        globalLock = await redis.isGlobalLock(this.lockKey);
+        if (globalLock) {
           return;
         }
-        await this.start();
-        await redis.set(this.lockKey, 0);
+        try {
+          await this.start();
+        } catch (e) {
+          throw e;
+        } finally {
+          await redis.set(this.lockKey, 0);
+        }
         break;
       default:
-        // 锁类型为空时,没有进程锁和内存,不保证任何串行
+        // 锁类型为空时,没有进程锁和内存锁,不保证任何串行
         await this.start();
         break;
     }
