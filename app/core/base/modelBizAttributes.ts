@@ -4,7 +4,7 @@
  */
 'use strict';
 import * as sequelize from 'sequelize';
-import * as superSequelize from '../base/typings/modelService';
+import superSequelize from '../base/typings/modelService';
 
 const bizAttributes: superSequelize.DefineAttributes = {
   id: {

@@ -55,4 +55,4 @@ declare namespace superSequelize {
   type Instance<T> = sequelize.Instance<ResponseAttributes<T>>&ResponseAttributes<T>;
 }
 
-export = superSequelize
+export default superSequelize

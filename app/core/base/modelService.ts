@@ -5,7 +5,7 @@
 'use strict';
 import { Context, Service } from 'egg';
 import * as sequelize from 'sequelize';
-import * as superSequelize from './typings/modelService';
+import superSequelize from './typings/modelService';
 
 export default abstract class ModelService<TInstance, TAttributes> extends Service {
 

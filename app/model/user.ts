@@ -8,7 +8,7 @@
 import { Application } from 'egg';
 import * as Sequelize from 'sequelize';
 import ModelBizAttributes from '../core/base/modelBizAttributes';
-import * as superSequelize from '../core/base/typings/modelService';
+import superSequelize from '../core/base/typings/modelService';
 import reg from '../core/utils/reg';
 
 export interface CusAttributes {
