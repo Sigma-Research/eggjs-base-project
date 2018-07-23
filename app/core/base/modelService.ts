@@ -15,16 +15,16 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
     super(ctx);
   }
 
-  public async create(values?: TAttributes, options?: sequelize.CreateOptions) {
+  public create(values?: TAttributes, options?: sequelize.CreateOptions) {
     return this.model.create(values, options);
   }
 
-  public async bulkCreate(records: TAttributes[], options?: sequelize.BulkCreateOptions) {
+  public bulkCreate(records: TAttributes[], options?: sequelize.BulkCreateOptions) {
     return this.model.bulkCreate(records, options);
   }
 
   // sequelize.FindOptions<TAttributes & BizAttributes>
-  public async getOne(options: superSequelize.GetOneOptions<superSequelize.Attributes<TAttributes>> = {}) {
+  public getOne(options: superSequelize.GetOneOptions<superSequelize.Attributes<TAttributes>> = {}) {
     if (!options.where) {
       options.where = {};
     }
@@ -32,7 +32,15 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
     return this.model.findOne<superSequelize.Attributes<TAttributes>>(options);
   }
 
-  public async getList(options: superSequelize.GetListOptions<superSequelize.Attributes<TAttributes>> = {}) {
+  public async exists(options: superSequelize.GetOneOptions<superSequelize.Attributes<TAttributes>> = {}) {
+    if (!options.where) {
+      options.where = {};
+    }
+    options.where.isDel = 0;
+    const data = await this.model.findOne<superSequelize.Attributes<TAttributes>>(options);
+    return !!data;
+  }
+  public getList(options: superSequelize.GetListOptions<superSequelize.Attributes<TAttributes>> = {}) {
     if (!options.where) {
       options.where = {};
     }
@@ -44,7 +52,7 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
     return this.model.findAll<superSequelize.Attributes<TAttributes>>(options);
   }
 
-  public async getAll(options: superSequelize.GetListOptions<superSequelize.Attributes<TAttributes>> = {}) {
+  public getAll(options: superSequelize.GetListOptions<superSequelize.Attributes<TAttributes>> = {}) {
     if (!options.where) {
       options.where = {};
     }
@@ -52,7 +60,7 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
     return this.model.findAll<superSequelize.Attributes<TAttributes>>(options);
   }
 
-  public async update(values: Partial<superSequelize.Attributes<TAttributes>>, options: superSequelize.UpdateOptions<superSequelize.Attributes<TAttributes>>) {
+  public update(values: Partial<superSequelize.Attributes<TAttributes>>, options: superSequelize.UpdateOptions<superSequelize.Attributes<TAttributes>>) {
     if (!options.where) {
       options.where = {};
     }
@@ -68,7 +76,7 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
   }
 
   // 逻辑删除的数据不能再修改
-  public async delete(options: superSequelize.UpdateOptions<superSequelize.Attributes<TAttributes>>) {
+  public delete(options: superSequelize.UpdateOptions<superSequelize.Attributes<TAttributes>>) {
     const values: Partial<superSequelize.Attributes<TAttributes>> = {};
     if (!options.where) {
       options.where = {};
