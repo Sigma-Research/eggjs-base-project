@@ -18,11 +18,13 @@ const bizAttributes: superSequelize.DefineAttributes = {
     type: sequelize.DATE(3),
     allowNull: false,
     comment: '更新时间',
+    defaultValue: sequelize.NOW,
   },
   createTime: {
     type: sequelize.DATE(3),
     allowNull: false,
     comment: '创建时间',
+    defaultValue: sequelize.NOW,
   },
   isDel: {
     type: sequelize.BIGINT(16),
