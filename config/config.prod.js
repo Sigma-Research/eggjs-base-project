@@ -21,6 +21,7 @@ module.exports = {
     username: '<your mysql username>',
     password: '<your mysql password>',
     host: '<your mysql host>',
+    logging: false,
     port: 3306,
     pool: {
       max: 100,

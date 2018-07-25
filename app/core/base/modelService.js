@@ -62,7 +62,7 @@ class ModelService extends Service {
   }
 
   async delete(whereOpt) {
-    return await this.Model.update({ isDel: 1 }, { where: whereOpt });
+    return await this.Model.update({ isDel: +new Date() }, { where: whereOpt });
   }
 
 }

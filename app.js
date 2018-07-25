@@ -22,7 +22,7 @@ module.exports = app => {
     Object.keys(config.scheduleLockKey).forEach(key => {
       commandList.push([ 'del', config.scheduleLockKey[key] ]);
     });
-    await redis.multi(commandList).exec();
+    await redis.pipeline(commandList).exec();
   });
   // 设置路由前缀
   app.router.opts.prefix = '/api';

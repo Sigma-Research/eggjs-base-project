@@ -60,7 +60,7 @@ module.exports = app => {
       comment: '创建时间',
     },
     isDel: {
-      type: Sequelize.INTEGER(1),
+      type: Sequelize.BIGINT(16),
       allowNull: true,
       defaultValue: 0,
       comment: '用于逻辑删除',
