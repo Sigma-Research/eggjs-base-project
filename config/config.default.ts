@@ -18,7 +18,7 @@ export interface BizConfig {
   scheduleLockKey: { [name: string]: string };
 }
 
-module.exports = (appInfo: EggAppInfo) => {
+export default (appInfo: EggAppInfo) => {
   const config: PowerPartial<EggAppConfig> & BizConfig = {
     sourceUrl: `https://github.com/Sigma-Research/${appInfo.name}`,
     // egg schedule 的锁状态

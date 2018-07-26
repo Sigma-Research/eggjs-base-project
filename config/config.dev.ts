@@ -5,7 +5,7 @@
 'use strict';
 import { DefaultConfig } from './config.default';
 
-module.exports = () => {
+export default () => {
   const config: DefaultConfig = {
     // redis配置
     redis: {
