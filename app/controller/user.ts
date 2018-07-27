@@ -4,59 +4,51 @@
  */
 'use strict';
 
-const { Controller } = require('egg');
-const md5 = require('md5');
-class UserController extends Controller {
+import { Controller } from 'egg';
+import * as md5 from 'md5';
+export default class UserController extends Controller {
 
-  async login() {
+  public async login() {
     const { ctx, service, app } = this;
     const { reg } = app.utils;
     const { username, password } = ctx.request.body;
     if (!reg.username.test(username) || !reg.password.test(password)) {
       ctx.body = {
         status: 1002,
-        statusInfo: '参数错误'
+        statusInfo: '参数错误',
       };
       return;
     }
-    const user = await service.user.getOne({
-      where: {
-        username
-      }
-    });
+    const user = await service.user.getOne({ username });
     if (!user || user.password !== md5(password)) {
       ctx.body = {
         status: 1004,
-        statusInfo: '用户名或密码错误'
+        statusInfo: '用户名或密码错误',
       };
       return;
     }
     ctx.session.userId = user.id;
     ctx.body = {
-      status: 0
+      status: 0,
     };
   }
 
-  async register() {
+  public async register() {
     const { ctx, service, app } = this;
     const { reg } = app.utils;
     const { username, password, nickname, headImageUrl } = ctx.request.body;
     if (!reg.username.test(username) || !reg.password.test(password) || !reg.url.test(headImageUrl)) {
       ctx.body = {
         status: 1002,
-        statusInfo: '参数错误'
+        statusInfo: '参数错误',
       };
       return;
     }
-    const user = await service.user.getOne({
-      where: {
-        username
-      }
-    });
+    const user = await service.user.getOne({ username });
     if (user) {
       ctx.body = {
         status: 1001,
-        statusInfo: '用户已经存在'
+        statusInfo: '用户已经存在',
       };
       return;
     }
@@ -64,27 +56,20 @@ class UserController extends Controller {
       status: 0,
       data: await service.user.create({
         username,
-        password: md5(password),
         nickname,
-        headImageUrl
-      })
+        headImageUrl,
+        password: md5(password),
+      }),
     };
   }
 
-  async getOneById() {
+  public async getOneById() {
     const { ctx, service } = this;
     const { userId } = ctx.data;
-    const user = await service.user.getOne({
-      where: {
-        id: userId
-      }
-    });
+    const user = await service.user.getOne({ id: userId });
     ctx.body = {
       status: 0,
-      data: user
+      data: user,
     };
   }
-
 }
-
-module.exports = UserController;

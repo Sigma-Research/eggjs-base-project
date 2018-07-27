@@ -3,32 +3,31 @@
  * @author zengbaoqing<misterapptracy@gmail.com>
  */
 'use strict';
-
-const BaseSubscription = require('../core/base/baseSubscription');
-const fs = require('fs');
-const path = require('path');
-const dateformat = require('dateformat');
-const os = require('os');
-const rimraf = require('rimraf');
+import * as dateformat from 'dateformat';
+import * as fs from 'fs';
+import * as os from 'os';
+import * as path from 'path';
+import * as rimraf from 'rimraf';
+import BaseSubscription from '../core/base/baseSubscription';
 // 考试过期时间
 const EXPIRE_DURATION = 5 * 24 * 60 * 60 * 1000;
 
-class ClearLogFile extends BaseSubscription {
+export default class ClearLogFile extends BaseSubscription {
   constructor(ctx) {
     super(ctx, 'global', ctx.app.config.scheduleLockKey.clearLogFile);
   }
   // 通过 schedule 属性来设置定时任务的执行间隔等配置
-  static get schedule() {
+  public static get schedule() {
     return {
       cron: '0 0 3 * * *', // 每天凌晨三点执行
       // interval: '1s',
       type: 'worker',
-      disable: false
+      disable: false,
     };
   }
 
   // start 是真正定时任务执行时被运行的函数
-  async start() {
+  public async start() {
     const { config, logger } = this;
     const { dir, appLogName, coreLogName, agentLogName, errorLogName } = config.logger;
     const isLogReg = new RegExp(`^(${appLogName}|${coreLogName}|${agentLogName}|${errorLogName})`, 'i');
@@ -43,7 +42,7 @@ class ClearLogFile extends BaseSubscription {
     if (!files || !files.length) {
       return logger.info('no expire log files!');
     }
-    files.forEach(filename => {
+    files.forEach((filename) => {
       if (!isLogReg.test(filename)) {
         return;
       }
@@ -62,5 +61,3 @@ class ClearLogFile extends BaseSubscription {
     });
   }
 }
-
-module.exports = ClearLogFile;

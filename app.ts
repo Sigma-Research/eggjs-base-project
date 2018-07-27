@@ -3,10 +3,11 @@
  * @author zengbaoqing<misterapptracy@gmail.com>
  */
 'use strict';
-const loadRedisCommand = require('./app/core/redisCommand');
-const path = require('path');
+import { Application } from 'egg';
+import * as path from 'path';
+import loadRedisCommand from './app/core/redisCommand';
 
-module.exports = app => {
+export default (app: Application) => {
   // 加载工具方法到app
   const direcotry = path.join(app.config.baseDir, 'app/core/utils');
   app.loader.loadToApp(direcotry, 'utils', {});
@@ -18,12 +19,12 @@ module.exports = app => {
     // 加载redis的自定义命令
     loadRedisCommand(app);
     // 删除定时器的单一串行锁
-    const commandList = [];
-    Object.keys(config.scheduleLockKey).forEach(key => {
-      commandList.push([ 'del', config.scheduleLockKey[key] ]);
+    const commandList: string[][] = [];
+    Object.keys(config.scheduleLockKey).forEach((key) => {
+      commandList.push(['del', config.scheduleLockKey[key]]);
     });
     await redis.pipeline(commandList).exec();
   });
   // 设置路由前缀
-  app.router.opts.prefix = '/api';
+  app.router.prefix('/api');
 };

@@ -3,9 +3,10 @@
  * @author zengbaoqing<misterapptracy@gmail.com>
  */
 'use strict';
+import { Context } from 'egg';
 
-module.exports = () => {
-  return async (ctx, next) => {
+export default (): any => {
+  return async (ctx: Context, next: any) => {
     const startTime = +new Date();
     await next();
     if (ctx.body && ctx.body.status === 0) {
