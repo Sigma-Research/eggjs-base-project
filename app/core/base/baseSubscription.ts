@@ -1,6 +1,6 @@
 /**
  * @file 计时器扩展类
- * @author guxiang <gavingu12@gmail.com>
+ * @author zengbaoqing <misterapptracy@gmail.com>
  */
 'use strict';
 

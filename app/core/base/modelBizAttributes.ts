@@ -1,6 +1,6 @@
 /**
  * @file 表通用字段
- * @author guxiang <gavingu12@gmail.com>
+ * @author zengbaoqing <misterapptracy@gmail.com>
  */
 'use strict';
 import superMongoose from './typings/modelService';

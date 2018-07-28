@@ -10,9 +10,9 @@ import superMongoose from '../core/base/typings/modelService';
 import bizAttributes from '../core/base/modelBizAttributes';
 
 export interface CusAttributes {
-  username: string;
+  username?: string;
   nickname?: string;
-  password: string;
+  password?: string;
   headImageUrl?: string;
 }
 // 字段声明

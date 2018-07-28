@@ -1,6 +1,7 @@
 /**
  * @file service model基类
- * @author guxiang <gavingu12@gmail.com>
+ * @author zengbaoqing <misterapptracy@gmail.com>
+ * @desc 为了返回Promise对象需要做不一样的处理
  */
 'use strict';
 import { Context, Service } from 'egg';
@@ -12,11 +13,12 @@ export default abstract class ModelService<TAttributes> extends Service {
     super(ctx);
   }
 
-  public count(whereOpt:superMongoose.GetOneOptions) {
+  public async count(whereOpt:superMongoose.GetOneOptions) {
     if (whereOpt.isDel !== 1) {
       whereOpt.isDel = 0;
     }
-    return this.model.count(whereOpt);
+    const count:number = await this.model.count(whereOpt);
+    return Promise.resolve(count);
   }
 
   public create(option:object) {
@@ -28,43 +30,49 @@ export default abstract class ModelService<TAttributes> extends Service {
   }
 
   public aggregate(aggregations:object[]) {
-    return this.model.aggregate(aggregations);
+    // 需要在此返回Promise类型
+    return this.model.aggregate(aggregations, () => {});
   }
 
-  public getOne(whereOpt:superMongoose.GetOneOptions, attributes?:string[]) {
+  public async getOne(whereOpt:superMongoose.GetOneOptions, attributes?:string[]) {
     if (whereOpt.isDel !== 1) {
       whereOpt.isDel = 0;
     }
-	  return this.model.findOne(whereOpt, attributes);
+    const data:TAttributes|null = await this.model.findOne(whereOpt, attributes);
+    return Promise.resolve(data);
   }
 
-  public getAll(whereOpt:superMongoose.GetOneOptions, attributes?:string[]) {
+  public async getAll(whereOpt:superMongoose.GetOneOptions, attributes?:string[]) {
     if (whereOpt.isDel !== 1) {
       whereOpt.isDel = 0;
     }
-	  return this.model.find(whereOpt, attributes);
+    const list:TAttributes[] = await this.model.find(whereOpt, attributes);
+    return Promise.resolve(list);
   }
 
-  public getList(options:superMongoose.GetListOptions) {
-    const {  where, attributes } = options;
+  public async getList(options:superMongoose.GetListOptions) {
+    const { where, attributes } = options;
     let { page, pageSize } = options;
     if (where.isDel !== 1) {
       where.isDel = 0;
     }
     page = page && page > 1 ? page :1;
     pageSize = pageSize && pageSize > 0 ? pageSize : 10;
-    return this.model.find(where, attributes).skip((page - 1) * pageSize).limit(pageSize);
+    const list:TAttributes[] = await this.model.find(where, attributes).skip((page - 1) * pageSize).limit(pageSize);
+    return Promise.resolve(list);
   }
 
-  public update(whereOpt:superMongoose.GetOneOptions, option:object) {
+  public async update(whereOpt:superMongoose.GetOneOptions, option:object) {
     if (whereOpt.isDel !== 1) {
       whereOpt.isDel = 0;
     }
-    return this.model.update(whereOpt, { $set: option }, { safe: true });
+    const rawResponse = await this.model.update(whereOpt, { $set: option }, { safe: true });
+    return Promise.resolve(rawResponse);
   }
 
-  public delete(whereOpt:superMongoose.GetOneOptions) {
+  public async delete(whereOpt:superMongoose.GetOneOptions) {
     whereOpt.isDel = 0;
-    return this.model.update(whereOpt, { $set: { available: 0 } });
+    await this.model.update(whereOpt, { $set: { available: 0 } });
+    return Promise.resolve(null);
   }
 }

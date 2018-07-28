@@ -22,6 +22,7 @@ declare namespace superMongoose {
 
   // 业务属性
   type Attributes<T> = T&{
+    _id?:mongoose.Schema.Types.ObjectId
     updateTime?: mongoose.Schema.Types.Date; // DATETIME我们一般传入 +new Date()时间戳
     createTime?: mongoose.Schema.Types.Date;
     isDel?: number;
@@ -29,6 +30,7 @@ declare namespace superMongoose {
 
   // 业务属性返回值
   type ResponseAttributes<T> = T&{
+    _id:string;
     updateTime: string; // DATETIME返回值是string
     createTime: string;
     isDel: number;
@@ -42,7 +44,7 @@ declare namespace superMongoose {
   }
 
   interface GetListOptions {
-    where?:Conditions,
+    where:GetOneOptions,
     page?:number,
     pageSize?:number,
     attributes?:string[],
