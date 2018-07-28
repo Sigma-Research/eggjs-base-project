@@ -13,8 +13,8 @@ export default abstract class ModelService<TAttributes> extends Service {
   }
 
   public count(whereOpt:superMongoose.GetOneOptions) {
-    if (whereOpt.isDel !== 0) {
-      whereOpt.isDel = 1;
+    if (whereOpt.isDel !== 1) {
+      whereOpt.isDel = 0;
     }
     return this.model.count(whereOpt);
   }
@@ -32,15 +32,15 @@ export default abstract class ModelService<TAttributes> extends Service {
   }
 
   public getOne(whereOpt:superMongoose.GetOneOptions, attributes?:string[]) {
-    if (whereOpt.isDel !== 0) {
-      whereOpt.isDel = 1;
+    if (whereOpt.isDel !== 1) {
+      whereOpt.isDel = 0;
     }
 	  return this.model.findOne(whereOpt, attributes);
   }
 
   public getAll(whereOpt:superMongoose.GetOneOptions, attributes?:string[]) {
-    if (whereOpt.isDel !== 0) {
-      whereOpt.isDel = 1;
+    if (whereOpt.isDel !== 1) {
+      whereOpt.isDel = 0;
     }
 	  return this.model.find(whereOpt, attributes);
   }
@@ -48,20 +48,23 @@ export default abstract class ModelService<TAttributes> extends Service {
   public getList(options:superMongoose.GetListOptions) {
     const {  where, attributes } = options;
     let { page, pageSize } = options;
+    if (where.isDel !== 1) {
+      where.isDel = 0;
+    }
     page = page && page > 1 ? page :1;
     pageSize = pageSize && pageSize > 0 ? pageSize : 10;
     return this.model.find(where, attributes).skip((page - 1) * pageSize).limit(pageSize);
   }
 
   public update(whereOpt:superMongoose.GetOneOptions, option:object) {
-    if (whereOpt.isDel !== 0) {
-      whereOpt.isDel = 1;
+    if (whereOpt.isDel !== 1) {
+      whereOpt.isDel = 0;
     }
     return this.model.update(whereOpt, { $set: option }, { safe: true });
   }
 
   public delete(whereOpt:superMongoose.GetOneOptions) {
-    whereOpt.isDel = 1;
+    whereOpt.isDel = 0;
     return this.model.update(whereOpt, { $set: { available: 0 } });
   }
 }

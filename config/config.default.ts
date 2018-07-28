@@ -48,7 +48,7 @@ export default (appInfo: EggAppInfo) => {
       },
     },
     session: {
-      key: 'MANHATTAN_SESS',
+      key: 'SESSION_ID', // session id key
       maxAge: 24 * 3600 * 1000, // 1 天
       httpOnly: true,
       encrypt: true,

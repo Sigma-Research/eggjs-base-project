@@ -8,20 +8,17 @@ import superMongoose from './typings/modelService';
 const bizAttributes: superMongoose.SchemaAttributes = {
   updateTime: {
     type: Date,
-    allowNull: false,
     comment: '更新时间',
-    defaultValue: Date.now,
+    default: Date.now,
   },
   createTime: {
     type: Date,
-    allowNull: false,
     comment: '创建时间',
-    defaultValue: Date.now,
+    default: Date.now,
   },
   isDel: {
     type: Number,
-    allowNull: true,
-    defaultValue:0,
+    default:0,
     comment: '用于逻辑删除',
   },
 };

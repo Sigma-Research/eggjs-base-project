@@ -19,7 +19,8 @@ export default class UserController extends Controller {
       };
       return;
     }
-    const user = await service.user.getOne({ username });
+    const user = await service.user.getOne({ username }, ['_id', 'username', 'password']);
+    console.log(user);
     if (!user || user.password !== md5(password)) {
       ctx.body = {
         status: 1004,
@@ -27,7 +28,7 @@ export default class UserController extends Controller {
       };
       return;
     }
-    ctx.session.userId = user.id;
+    ctx.session.userId = user._id;
     ctx.body = {
       status: 0,
     };
@@ -37,14 +38,14 @@ export default class UserController extends Controller {
     const { ctx, service, app } = this;
     const { reg } = app.utils;
     const { username, password, nickname, headImageUrl } = ctx.request.body;
-    if (!reg.username.test(username) || !reg.password.test(password) || !reg.url.test(headImageUrl)) {
+    if (!reg.username.test(username) || !reg.password.test(password)) {
       ctx.body = {
         status: 1002,
         statusInfo: '参数错误',
       };
       return;
     }
-    const user = await service.user.getOne({ username });
+    const user = await service.user.getOne({ username }, ['username']);
     if (user) {
       ctx.body = {
         status: 1001,

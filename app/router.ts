@@ -11,7 +11,7 @@ export default (app: Application) => {
   // 登录
   router.post('/login', user.login);
   // 注册
-  router.get('/register', user.register);
+  router.post('/register', user.register);
   // 获取个人信息
   router.get('/user/getOneById', middleware.authLogin(), user.getOneById);
 };
