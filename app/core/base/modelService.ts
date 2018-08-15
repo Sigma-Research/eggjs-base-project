@@ -1,11 +1,11 @@
 /**
- * @file service model基类
+ * @file service 基类
  * @author guxiang <gavingu12@gmail.com>
  */
 'use strict';
 import { Context, Service } from 'egg';
 import * as sequelize from 'sequelize';
-import superSequelize from './typings/modelService';
+import * as superSequelize from './typings/modelService';
 
 export default abstract class ModelService<TInstance, TAttributes> extends Service {
 
@@ -29,22 +29,18 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
       options.where = {};
     }
     options.where.isDel = 0;
+    options.raw = true;
     return this.model.findOne<superSequelize.Attributes<TAttributes>>(options);
   }
 
-  public async exists(options: superSequelize.GetOneOptions<superSequelize.Attributes<TAttributes>> = {}) {
+  public getList(options:
+    superSequelize.GetListOptions<superSequelize.Attributes<TAttributes>> = {}) {
     if (!options.where) {
       options.where = {};
     }
     options.where.isDel = 0;
-    const data = await this.model.findOne<superSequelize.Attributes<TAttributes>>(options);
-    return !!data;
-  }
-  public getList(options: superSequelize.GetListOptions<superSequelize.Attributes<TAttributes>> = {}) {
-    if (!options.where) {
-      options.where = {};
-    }
-    options.where.isDel = 0;
+    // 只返回结果，而不是sequlize的model实例
+    options.raw = true;
     const page = options.page && options.page >= 1 ? options.page : 1;
     const pageSize = options.pageSize && options.pageSize > 0 ? (options.pageSize > 1000 ? 1000 : options.pageSize) : 10;
     options.offset = (page - 1) * pageSize;
@@ -56,6 +52,7 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
     if (!options.where) {
       options.where = {};
     }
+    options.raw = true;
     options.where.isDel = 0;
     return this.model.findAll<superSequelize.Attributes<TAttributes>>(options);
   }
@@ -67,8 +64,7 @@ export default abstract class ModelService<TInstance, TAttributes> extends Servi
     options.where.isDel = 0;
     Object.keys(values).forEach((key) => {
       if ((this.schema[key] && this.schema[key].allowUpdate === false)
-        || values[key] === undefined
-        || this.schema[key] === undefined) {
+        || values[key] === undefined || this.schema[key] === undefined) {
         delete values[key];
       }
     });

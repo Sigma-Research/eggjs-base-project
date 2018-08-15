@@ -1,7 +1,8 @@
 /**
  * @file modelService接口定义
- * @author guxiang <gavingu12@gmail.com>
+ * @author zengbaoqing <misterapptracy@gmail.com>
  */
+
 'use strict';
 import sequelize from "sequelize"
 
@@ -55,4 +56,4 @@ declare namespace superSequelize {
   type Instance<T> = sequelize.Instance<ResponseAttributes<T>>&ResponseAttributes<T>;
 }
 
-export default superSequelize
+export = superSequelize
